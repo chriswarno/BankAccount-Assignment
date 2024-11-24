@@ -12,7 +12,10 @@ class BankAccount:
 
 
     def withdraw(self, amount):
-        self.amount = amount
+        if amount > self.balance:
+            raise ValueError("Cannot withdraw more than is in the account")
+        else:
+            self.balance -= amount
 
 
     def deposit(self, amount):
@@ -20,8 +23,7 @@ class BankAccount:
 
 
     def transfer_from(self, amount, to_account):
-        self.amount = amount
-        self.to_account = to_account
+        pass
 
 
     def __str__(self):
@@ -38,12 +40,23 @@ def main():
     print(l_sampson)
     print("\n")
 
-    j_smith.deposit(100)
-    h_rollins.deposit(100)
-    l_sampson.deposit(100)
+    j_smith.deposit(int(input("How much do you want to deposit? ")))
+    h_rollins.deposit(int(input("How much do you want to deposit? ")))
+    l_sampson.deposit(int(input("How much do you want to deposit? ")))
+    print("\n")
 
     print(j_smith)
     print(h_rollins)
     print(l_sampson)
+    print("\n")
+
+    j_smith.withdraw(int(input("How much do you want to withdraw? ")))
+    h_rollins.withdraw(int(input("How much do you want to withdraw? ")))
+    l_sampson.withdraw(int(input("How much do you want to withdraw? ")))
+
+    print(j_smith)
+    print(h_rollins)
+    print(l_sampson)
+    print("\n")
 
 main()
