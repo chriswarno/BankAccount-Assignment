@@ -1,13 +1,13 @@
 class BankAccount:
     #variables for BankAccount class
-    id = int
+    account_id = int
     balance = float
     first_name = str
     last_name = str
 
     #__init__ module to construct BankAccount class
-    def __init__(self, id, balance, first_name, last_name):
-        self.id = id
+    def __init__(self, account_id, balance, first_name, last_name):
+        self.account_id = account_id
         self.balance = balance
         self.first_name = first_name
         self.last_name = last_name
@@ -15,11 +15,9 @@ class BankAccount:
 
     #module to withdraw money from one bank account
     def withdraw(self, amount):
-        #if statement to determine if there is enough money for the withdrawal
-        if amount > self.balance:
-            raise ValueError("Cannot withdraw more than is in the account") #ValueError if there isn't enough money in the account
-        else:
-            self.balance -= amount
+        if self.balance < amount:
+            raise ValueError("There are not enough funds in the account to withdraw $" + str(amount))
+        self.balance -= amount
 
 
     #module to deposit money into an account
@@ -33,7 +31,7 @@ class BankAccount:
 
     #__str__ module to print the object
     def __str__(self):
-        return f"{self.id}: {self.first_name} {self.last_name}, Balance: {self.balance}"
+        return f"{self.account_id}: {self.first_name} {self.last_name}, Balance: {self.balance}"
 
 
 def main():
@@ -48,9 +46,9 @@ def main():
     print("\n")
 
     #depositing money into the accounts
-    j_smith.deposit(int(input("How much do you want to deposit? ")))
-    h_rollins.deposit(int(input("How much do you want to deposit? ")))
-    l_sampson.deposit(int(input("How much do you want to deposit? ")))
+    j_smith.deposit(100)
+    h_rollins.deposit(100)
+    l_sampson.deposit(100)
     print("\n")
 
     print(j_smith)
@@ -59,9 +57,17 @@ def main():
     print("\n")
 
     #withdrawing money from the accounts
-    j_smith.withdraw(int(input("How much do you want to withdraw? ")))
-    h_rollins.withdraw(int(input("How much do you want to withdraw? ")))
-    l_sampson.withdraw(int(input("How much do you want to withdraw? ")))
+    try:
+        j_smith.withdraw(50)
+    except ValueError as e:
+        print(e)
+        print("\n")
+
+    try:
+        h_rollins.withdraw(200)
+    except ValueError as e:
+        print(e)
+        print("\n")
 
     print(j_smith)
     print(h_rollins)
